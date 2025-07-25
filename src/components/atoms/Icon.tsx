@@ -1,6 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text } from './Text';
 
 export interface IconProps {
   name: string;
@@ -10,7 +10,7 @@ export interface IconProps {
 }
 
 /**
- * Atomic Icon component using system icons
+ * Atomic Icon component using Expo Vector Icons
  * Follows Atomic Design principles for reusability
  */
 export const Icon: React.FC<IconProps> = ({
@@ -19,8 +19,6 @@ export const Icon: React.FC<IconProps> = ({
   color = 'primary',
   style,
 }) => {
-  // For now, we'll use a simple text-based icon
-  // In a real app, you'd use a proper icon library like @expo/vector-icons
   const iconStyle = [
     styles.base,
     styles[`size_${size}`],
@@ -28,30 +26,45 @@ export const Icon: React.FC<IconProps> = ({
     style,
   ];
 
-  // Simple icon mapping for demo purposes
-  const iconMap: Record<string, string> = {
-    heart: '♥',
-    heartOutline: '♡',
-    comment: '💬',
-    share: '↗',
-    bookmark: '🔖',
-    bookmarkOutline: '📖',
-    like: '👍',
-    unlike: '👎',
-    user: '👤',
-    home: '🏠',
-    search: '🔍',
-    add: '➕',
-    close: '✕',
-    back: '←',
-    forward: '→',
+  // Map our custom names to Ionicons names
+  const iconMap: Record<string, keyof typeof Ionicons.glyphMap> = {
+    heart: 'heart',
+    heartOutline: 'heart-outline',
+    comment: 'chatbubble-outline',
+    share: 'paper-plane-outline',
+    bookmark: 'bookmark',
+    bookmarkOutline: 'bookmark-outline',
+    user: 'person',
+    home: 'home',
+    search: 'search',
+    add: 'add',
+    close: 'close',
+    back: 'arrow-back',
+    forward: 'arrow-forward',
+    more: 'ellipsis-horizontal',
+    camera: 'camera',
+    image: 'image',
   };
 
-  const iconSymbol = iconMap[name] || '•';
+  const iconName = iconMap[name] || 'help-outline';
+  const iconSize =
+    size === 'xs'
+      ? 12
+      : size === 'sm'
+        ? 16
+        : size === 'md'
+          ? 20
+          : size === 'lg'
+            ? 24
+            : 28;
 
   return (
     <View style={iconStyle}>
-      <Text style={styles.iconText}>{iconSymbol}</Text>
+      <Ionicons
+        name={iconName}
+        size={iconSize}
+        color={styles[`color_${color}`].color}
+      />
     </View>
   );
 };
@@ -102,10 +115,5 @@ const styles = StyleSheet.create({
   },
   color_white: {
     color: '#FFFFFF',
-  },
-
-  iconText: {
-    fontSize: 16,
-    textAlign: 'center',
   },
 });
