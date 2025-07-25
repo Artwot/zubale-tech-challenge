@@ -53,7 +53,16 @@ export const FeedTemplate: React.FC<FeedTemplateProps> = ({
   const renderHeader = useCallback(
     () => (
       <View style={styles.header}>
-        <Text variant="title" weight="bold" color="primary" align="left">
+        <Text
+          variant="title"
+          weight="bold"
+          color="primary"
+          align="left"
+          style={{
+            fontFamily: 'DancingScript_700Bold',
+            fontSize: 32,
+          }}
+        >
           Instagram
         </Text>
         <View style={styles.headerIcons}>

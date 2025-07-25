@@ -1,3 +1,8 @@
+import {
+  DancingScript_400Regular,
+  DancingScript_700Bold,
+  useFonts,
+} from '@expo-google-fonts/dancing-script';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +16,11 @@ export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const [showCustomSplash, setShowCustomSplash] = useState(true);
 
+  const [fontsLoaded] = useFonts({
+    DancingScript_400Regular,
+    DancingScript_700Bold,
+  });
+
   useEffect(() => {
     // Reset state on every mount (for hot reload)
     setIsReady(false);
@@ -18,7 +28,7 @@ export default function RootLayout() {
 
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
+        // Wait for fonts to load
         await new Promise(resolve => setTimeout(resolve, 1000)); // Reduced loading time
       } catch (e) {
         console.warn(e);
@@ -34,6 +44,11 @@ export default function RootLayout() {
   const handleCustomSplashFinish = () => {
     setShowCustomSplash(false);
   };
+
+  // Show splash screen while fonts are loading
+  if (!fontsLoaded) {
+    return <CustomSplashScreen onFinish={handleCustomSplashFinish} />;
+  }
 
   if (!isReady || showCustomSplash) {
     return <CustomSplashScreen onFinish={handleCustomSplashFinish} />;

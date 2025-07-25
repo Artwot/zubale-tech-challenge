@@ -85,13 +85,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
           <View style={[styles.loadingDot, styles.loadingDotMoreDelayed]} />
         </View>
       </Animated.View>
-
-      {/* Skip button for development */}
-      <TouchableOpacity style={styles.skipButton} onPress={onFinish}>
-        <Text variant="caption" color="primary">
-          Skip (Dev)
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };
