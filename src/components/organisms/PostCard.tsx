@@ -68,9 +68,12 @@ export const PostCard: React.FC<PostCardProps> = ({
       >
         <Image
           source={post.image}
-          size="xl"
+          size="post"
           shape="square"
           fallbackText="Post Image"
+          fallbackSource={`https://static.photos/1024x576/${Math.floor(
+            Math.random() * 1000
+          )}`}
           showError={true}
         />
       </TouchableOpacity>
