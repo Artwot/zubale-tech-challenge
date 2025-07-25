@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import '@testing-library/jest-native/extend-expect';
+// Testing library setup will be added when needed
 
 // Mock Expo modules
 jest.mock('expo-status-bar', () => ({
