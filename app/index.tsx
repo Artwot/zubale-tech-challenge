@@ -1,3 +1,8 @@
+import {
+  PostActions,
+  PostFooter,
+  PostHeader,
+} from '@/src/components/molecules';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
@@ -19,27 +24,28 @@ export default function HomePage() {
         >
           Instagram-like Feed
         </Text>
-        <Text
-          variant="body"
-          weight="semibold"
-          color="primary"
-          align="center"
-          style={styles.description}
-        >
-          Esto ya funciona!
-        </Text>
-        <View style={styles.infoContainer}>
-          <Text
-            variant="caption"
-            color="secondary"
-            align="center"
-            style={styles.info}
-          >
-            • Atomic Design: Ready{'\n'}• TypeScript: Configured{'\n'}• Context
-            API: Setup{'\n'}• ESLint + Prettier: Active{'\n'}• Testing: Ready
-            {'\n'}• Estructura: Lista 🎯
-          </Text>
-        </View>
+        <PostHeader
+          avatar="https://picsum.photos/id/237/200/300"
+          name="John Doe"
+          location="New York, NY"
+        />
+        <PostActions
+          likes={10}
+          comments={5}
+          liked={true}
+          saved={false}
+          onLikePress={() => {}}
+          onCommentPress={() => {}}
+          onSharePress={() => {}}
+          onSavePress={() => {}}
+        />
+        <PostFooter
+          name="John Doe"
+          description="This is a description"
+          likes={10}
+          comments={5}
+          createdAt="2021-05-15T10:00:00Z"
+        />
       </View>
     </SafeAreaView>
   );
