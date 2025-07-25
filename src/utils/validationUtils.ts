@@ -14,6 +14,7 @@ export const isValidUrl = (url: string): boolean => {
     const urlPattern = /^https?:\/\/.+/i;
     return urlPattern.test(url);
   } catch (error) {
+    console.error('Error validating URL:', error);
     return false;
   }
 };
@@ -61,6 +62,7 @@ export const validateRequiredFields = (
       return value !== null && value !== undefined;
     });
   } catch (error) {
+    console.error('Error validating required fields:', error);
     return false;
   }
 };
@@ -124,6 +126,7 @@ export const isValidPost = (post: any): post is Post => {
 
     return true;
   } catch (error) {
+    console.error('Error validating post:', error);
     return false;
   }
 };
@@ -144,6 +147,7 @@ export const sanitizeString = (str: string): string => {
       .replace(/\s+/g, ' ') // Replace multiple spaces with single space
       .replace(/[^\w\s\-.,!?]/g, ''); // Remove special characters except basic punctuation
   } catch (error) {
+    console.error('Error sanitizing string:', error);
     return '';
   }
 };
@@ -168,6 +172,7 @@ export const isValidStringLength = (
     const length = str.trim().length;
     return length >= minLength && length <= maxLength;
   } catch (error) {
+    console.error('Error validating string length:', error);
     return false;
   }
 };
@@ -191,6 +196,7 @@ export const isNumberInRange = (
 
     return num >= min && num <= max;
   } catch (error) {
+    console.error('Error validating number range:', error);
     return false;
   }
 };
