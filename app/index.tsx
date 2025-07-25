@@ -1,14 +1,23 @@
-import {
-  PostActions,
-  PostFooter,
-  PostHeader,
-} from '@/src/components/molecules';
+import { PostCard } from '@/src/components/organisms/PostCard';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Text } from '../src/components/atoms';
 
 export default function HomePage() {
+  const post = {
+    id: '1',
+    createdAt: '2021-05-15T10:00:00Z',
+    name: 'John Doe',
+    avatar: 'https://picsum.photos/id/237/200/300',
+    description: 'This is a description',
+    likes: 10,
+    image: 'https://picsum.photos/id/237/600',
+    comments: 5,
+    liked: true,
+    saved: false,
+    location: 'New York, NY',
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -24,27 +33,14 @@ export default function HomePage() {
         >
           Instagram-like Feed
         </Text>
-        <PostHeader
-          avatar="https://picsum.photos/id/237/200/300"
-          name="John Doe"
-          location="New York, NY"
-        />
-        <PostActions
-          likes={10}
-          comments={5}
-          liked={true}
-          saved={false}
+        <PostCard
+          post={post}
           onLikePress={() => {}}
           onCommentPress={() => {}}
           onSharePress={() => {}}
           onSavePress={() => {}}
-        />
-        <PostFooter
-          name="John Doe"
-          description="This is a description"
-          likes={10}
-          comments={5}
-          createdAt="2021-05-15T10:00:00Z"
+          onNamePress={() => {}}
+          onImagePress={() => {}}
         />
       </View>
     </SafeAreaView>
