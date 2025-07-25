@@ -80,15 +80,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 4,
   },
   leftActions: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   actionButton: {
-    padding: 8,
-    marginRight: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
   },
 });
