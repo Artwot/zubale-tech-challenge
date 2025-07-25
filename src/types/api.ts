@@ -2,13 +2,15 @@
 export interface ApiResponse<T> {
   data: T;
   success: boolean;
+  status: number;
   message?: string;
 }
 
 export interface ApiError {
   message: string;
-  code?: string;
-  status?: number;
+  status: number;
+  timestamp: string;
+  url: string;
 }
 
 // API Endpoints
