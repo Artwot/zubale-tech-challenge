@@ -23,7 +23,15 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Image source={avatar} size="md" shape="circle" fallbackText="User" />
+        <Image
+          source={avatar}
+          size="md"
+          shape="circle"
+          fallbackText="User"
+          fallbackSource={`https://static.photos/people/640x360/${Math.floor(
+            Math.random() * 1000
+          )}`}
+        />
       </View>
 
       <View style={styles.infoContainer}>

@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
-import {
-  Image as RNImage,
-  ImageProps as RNImageProps,
-  StyleSheet,
-  View,
-} from 'react-native';
-import { Text } from './Text';
+import { Image as ExpoImage } from 'expo-image';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
 
-export interface ImageProps extends Omit<RNImageProps, 'source'> {
+const { width: screenWidth } = Dimensions.get('window');
+
+export interface ImageProps {
   source: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full' | 'post';
   shape?: 'square' | 'circle' | 'rounded';
   fallbackText?: string;
   showError?: boolean;
+  showLoading?: boolean;
+  fallbackSource?: string;
+  style?: any;
+  onError?: (error: any) => void;
+  onLoad?: () => void;
 }
 
-/**
- * Atomic Image component with error handling and loading states
- * Follows Atomic Design principles for reusability
- */
 export const Image: React.FC<ImageProps> = ({
   source,
   size = 'md',
   shape = 'square',
   fallbackText = 'Image',
   showError = true,
+  showLoading = true,
+  fallbackSource,
   style,
   onError,
+  onLoad,
   ...props
 }) => {
   const [hasError, setHasError] = useState(false);
+  const [currentSource, setCurrentSource] = useState(source);
+
+  // Reset when source changes
+  useEffect(() => {
+    setCurrentSource(source);
+    setHasError(false);
+  }, [source]);
 
   const handleError = (error: any) => {
-    setHasError(true);
-    onError?.(error);
-  };
-
-  const handleLoad = () => {
-    setHasError(false);
+    if (!hasError && fallbackSource) {
+      // Try fallback URL
+      setCurrentSource(fallbackSource);
+      setHasError(true);
+    } else {
+      // Both attempts failed
+      onError?.(error);
+    }
   };
 
   const imageStyle = [
@@ -47,23 +57,18 @@ export const Image: React.FC<ImageProps> = ({
     style,
   ];
 
-  // Show fallback if there's an error
-  if (hasError && showError) {
-    return (
-      <View style={[imageStyle, styles.fallback]}>
-        <Text variant="caption" color="tertiary" align="center">
-          {fallbackText}
-        </Text>
-      </View>
-    );
-  }
-
   return (
-    <RNImage
-      source={{ uri: source }}
+    <ExpoImage
+      key={currentSource}
+      source={{ uri: currentSource }}
       style={imageStyle}
       onError={handleError}
-      onLoad={handleLoad}
+      onLoad={() => {
+        onLoad?.();
+      }}
+      contentFit="cover"
+      transition={200}
+      placeholder={fallbackText}
       {...props}
     />
   );
@@ -71,50 +76,43 @@ export const Image: React.FC<ImageProps> = ({
 
 const styles = StyleSheet.create({
   base: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#F8F9FA',
   },
-
-  // Sizes
-  size_xs: {
-    width: 24,
-    height: 24,
+  size_xs: { width: 24, height: 24 },
+  size_sm: { width: 32, height: 32 },
+  size_md: { width: 48, height: 48 },
+  size_lg: { width: 64, height: 64 },
+  size_xl: { width: 80, height: 80 },
+  size_2xl: { width: 120, height: 120 },
+  size_full: {
+    width: screenWidth,
+    height: screenWidth * 0.75,
   },
-  size_sm: {
-    width: 32,
-    height: 32,
+  size_post: {
+    width: screenWidth,
+    height: screenWidth,
   },
-  size_md: {
-    width: 48,
-    height: 48,
+  shape_square: { borderRadius: 0 },
+  shape_circle: { borderRadius: 999 },
+  shape_rounded: { borderRadius: 8 },
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F8F9FA',
+    borderWidth: 1,
+    borderColor: '#E9ECEF',
   },
-  size_lg: {
-    width: 64,
-    height: 64,
-  },
-  size_xl: {
-    width: 80,
-    height: 80,
-  },
-  size_2xl: {
-    width: 120,
-    height: 120,
-  },
-
-  // Shapes
-  shape_square: {
-    borderRadius: 0,
-  },
-  shape_rounded: {
-    borderRadius: 8,
-  },
-  shape_circle: {
-    borderRadius: 999, // Large value to make it circular
-  },
-
-  // Fallback
   fallback: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#F8F9FA',
+  },
+  fallbackIcon: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  fallbackText: {
+    fontSize: 10,
+    opacity: 0.7,
   },
 });
