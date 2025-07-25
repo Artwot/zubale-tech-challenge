@@ -1,24 +1,47 @@
+import { PostCard } from '@/src/components/organisms/PostCard';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text } from '../src/components/atoms';
 
 export default function HomePage() {
+  const post = {
+    id: '1',
+    createdAt: '2021-05-15T10:00:00Z',
+    name: 'John Doe',
+    avatar: 'https://picsum.photos/id/237/200/300',
+    description: 'This is a description',
+    likes: 10,
+    image: 'https://picsum.photos/id/237/600',
+    comments: 5,
+    liked: true,
+    saved: false,
+    location: 'New York, NY',
+  };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.content}>
-        <Text style={styles.title}>🚀 Zubale Tech Challenge</Text>
-        <Text style={styles.subtitle}>Instagram-like Feed</Text>
-        <Text style={styles.description}>
-          Estructura base configurada correctamente ✅
+        <Text variant="title" weight="bold" color="success" align="center">
+          🚀 Zubale Tech Challenge
         </Text>
-        <View style={styles.infoContainer}>
-          <Text style={styles.info}>
-            • Atomic Design: Ready{'\n'}• TypeScript: Configured{'\n'}• Context
-            API: Setup{'\n'}• ESLint + Prettier: Active{'\n'}• Testing: Ready
-            {'\n'}• Estructura: Lista 🎯
-          </Text>
-        </View>
+        <Text
+          variant="subtitle"
+          color="secondary"
+          align="center"
+          style={styles.subtitle}
+        >
+          Instagram-like Feed
+        </Text>
+        <PostCard
+          post={post}
+          onLikePress={() => {}}
+          onCommentPress={() => {}}
+          onSharePress={() => {}}
+          onSavePress={() => {}}
+          onNamePress={() => {}}
+          onImagePress={() => {}}
+        />
       </View>
     </SafeAreaView>
   );
@@ -35,25 +58,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
   subtitle: {
-    fontSize: 20,
-    color: '#666',
     marginBottom: 20,
-    textAlign: 'center',
   },
   description: {
-    fontSize: 16,
-    color: '#007AFF',
     marginBottom: 30,
-    textAlign: 'center',
-    fontWeight: '600',
   },
   infoContainer: {
     backgroundColor: '#F9F9F9',
@@ -61,9 +70,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   info: {
-    fontSize: 14,
-    color: '#666',
-    textAlign: 'center',
     lineHeight: 24,
   },
 });

@@ -71,6 +71,7 @@ export const isValidDate = (date: string | Date): boolean => {
   try {
     return moment(date).isValid();
   } catch (error) {
+    console.error('Error validating date:', error);
     return false;
   }
 };
