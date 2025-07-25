@@ -34,16 +34,7 @@ export const Icon: React.FC<IconProps> = ({
     share: 'paper-plane-outline',
     bookmark: 'bookmark',
     bookmarkOutline: 'bookmark-outline',
-    user: 'person',
-    home: 'home',
-    search: 'search',
-    add: 'add',
-    close: 'close',
-    back: 'arrow-back',
-    forward: 'arrow-forward',
-    more: 'ellipsis-horizontal',
-    camera: 'camera',
-    image: 'image',
+    message: 'chatbubble-outline',
   };
 
   const iconName = iconMap[name] || 'help-outline';

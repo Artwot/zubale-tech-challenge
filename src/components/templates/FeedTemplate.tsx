@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 import { Post } from '../../types';
-import { Button, Text } from '../atoms';
+import { Button, Icon, Text } from '../atoms';
 import { FeedList } from '../organisms';
 
 export interface FeedTemplateProps {
@@ -53,17 +53,18 @@ export const FeedTemplate: React.FC<FeedTemplateProps> = ({
   const renderHeader = useCallback(
     () => (
       <View style={styles.header}>
-        <Text variant="title" weight="bold" color="primary" align="center">
-          Instagram Feed
+        <Text variant="title" weight="bold" color="primary" align="left">
+          Instagram
         </Text>
-        <Text
-          variant="caption"
-          color="secondary"
-          align="center"
-          style={styles.subtitle}
-        >
-          Zubale Tech Challenge
-        </Text>
+        <View style={styles.headerIcons}>
+          <Icon
+            name="heartOutline"
+            size="lg"
+            color="primary"
+            style={styles.headerIcon}
+          />
+          <Icon name="message" size="lg" color="primary" />
+        </View>
       </View>
     ),
     []
@@ -145,6 +146,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5EA',
     backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerIcon: {
+    marginHorizontal: 4,
   },
   subtitle: {
     marginTop: 4,
